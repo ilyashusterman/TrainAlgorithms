@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/TrainLettCode.dir/main.cpp.o CMakeFiles/TrainLettCode.dir/TwoSum.cpp.o  -o TrainLettCode 
