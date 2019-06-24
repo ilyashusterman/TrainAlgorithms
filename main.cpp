@@ -1,4 +1,4 @@
-#include "TwoSum.h"
+#include "problems/TwoSum.h"
 #include <iostream>
 
 int main() {
