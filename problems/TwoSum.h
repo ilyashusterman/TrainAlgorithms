@@ -8,6 +8,7 @@
 #include <vector>
 #include <iostream>
 #include <stdio.h>
+#include "Printer.h"
 
 /*
  * Given an array of integers, return indices of the two numbers such that they add up to a specific target.
@@ -38,8 +39,8 @@ class TwoSum {
 
     void calculateAndPrint(const std::vector<int> &array, int target) {
         std::vector<int> sum_indexes = twoSum(array, target);
-        printArrayInt(sum_indexes, array);
-        printTarget(target);
+        printIndexesArrayInt(sum_indexes, array);
+        printf(" for sum target=%d\n", target);
     }
 
 public: std::vector<int> twoSum(std::vector<int> nums, int target) {
@@ -56,26 +57,18 @@ public: std::vector<int> twoSum(std::vector<int> nums, int target) {
                     }
                 }
             }
-
+        return {};
     }
 
-    void printArrayInt(std::vector<int>  indexes, std::vector<int>  array) const {
+    void printIndexesArrayInt(std::vector<int> indexes, std::vector<int> array) const {
         std::cout << "The indexes of array are:";
         for (std::vector<int>::iterator it = indexes.begin();
              it != indexes.end(); ++it) {
              printf ("array[%d]=%d ", *it,  array[*it]);
         }
-        printf (" [");
-        for (std::vector<int>::iterator it = array.begin(); it != array.end(); ++it){
-            printf ("%d,", *it);
-        }
-        printf ("]");
+        Printer().printArray(array);
     }
 
-    void printTarget(int target) const {
-        printf(" for target %d", target);
-        std::cout << '\n';
-    }
 };
 
 
