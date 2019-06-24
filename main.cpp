@@ -2,7 +2,7 @@
 #include <iostream>
 
 int main() {
-    TwoSum two_sum = TwoSum();
-    two_sum.main();
+    TwoSum twoSum = TwoSum();
+    twoSum.main();
     return 0;
 }
