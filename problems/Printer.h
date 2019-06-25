@@ -10,14 +10,15 @@
 
 class Printer {
 
-    public: void printArray(std::vector<int> &array) const {
-            printf(" [");
-            for (std::vector<int>::iterator it = array.begin();
-                 it != array.end(); ++it) {
-                printf("%d,", *it);
-            }
-            printf("]");
+public:
+    void printArray(std::vector<int> &array) const {
+        printf(" [");
+        for (std::vector<int>::iterator it = array.begin();
+             it != array.end(); ++it) {
+            printf("%d,", *it);
         }
+        printf("]");
+    }
 };
 
 

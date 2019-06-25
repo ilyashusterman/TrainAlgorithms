@@ -24,7 +24,7 @@ $(VERBOSE).SILENT:
 
 # The shell in which to execute make rules.
 SHELL = /bin/bash
-
+CMAKE_COMMAND = /home/ilya/Downloads/clion-2019.1.4/bin/cmake/linux/bin/cmake
 
 
 # Escaping for special characters.
@@ -44,6 +44,7 @@ clean:
 # run main
 main:
 	$(VERBOSE) g++ $(CFLAGS) main.cpp -o main.o
-	$(VERBOSE) ./main.o
+#	$(VERBOSE) ./main.o
+	$(VERBOSE) ./main.o --switch=$(COLOR) --cyan
 	$(VERBOSE) rm -rf ./main.o
 .PHONY : main
