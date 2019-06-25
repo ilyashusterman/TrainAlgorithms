@@ -40,7 +40,8 @@ class LongestSubstring {
 public:
     public: static int main() {
         std::cout << "Running, LongestSubstring" << std::endl;
-        std:: string const testStrings[] = {"abcabcbb", "bbbbb", "pwwkew", "pppppppppppacbacbacbab"};
+        std:: string const testStrings[] = { "abcabcbb", "bbbbb", "pwwkew"};
+//FIXME case     std:: string const testStrings[] = { "ppppppppppppppppppabcabcbb", ""};
         std:: string s_string;
         int length = 0;
         for(int i = 0; i < testStrings->length(); i++) {
@@ -78,11 +79,12 @@ public:
                     tempSubString = tempCurrentCharacter;
                     lastSubstringIndex = i;
                 } else {
-                    int index = i-1;
-                    if (i==0){
-                        index = i+1;
+                    std::string::size_type index = i;
+                    if (i==0 || index+1 == lastSubstringIndex){
+                        tempSubString = tempCurrentCharacter;
+                    }else{
+                        tempSubString = s_string.substr(lastSubstringIndex, index-1);
                     }
-                    tempSubString = s_string.substr(lastSubstringIndex, index);
                 }
                 // is the new substring size the longest?
                 if (tempSubString.size()> maxSize){
@@ -94,6 +96,7 @@ public:
             else{
                 lastSubstringIndex = i;
             }
+            //FIXME DEBUG log: printf("tempCurrentCharacter=%s tempSubString=%s index=%ld lastSubstringIndex=%ld \n", tempCurrentCharacter.c_str(), tempSubString.c_str(), index, lastSubstringIndex);
             prevCharacter = tempCurrentCharacter;
         }
         return  maxSubString;

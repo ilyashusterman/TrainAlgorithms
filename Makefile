@@ -44,7 +44,6 @@ clean:
 # run main
 main:
 	$(VERBOSE) g++ $(CFLAGS) main.cpp -o main.o
-#	$(VERBOSE) ./main.o
-	$(VERBOSE) ./main.o --switch=$(COLOR) --cyan
+	$(VERBOSE) ./main.o
 	$(VERBOSE) rm -rf ./main.o
 .PHONY : main
