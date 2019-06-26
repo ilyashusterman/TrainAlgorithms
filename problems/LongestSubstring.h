@@ -60,8 +60,8 @@ public:
         std:: string tempSubString;
         std:: string tempCurrentCharacter;
         std:: string maxSubString;
-        int maxSize=0;
         for(char i : s_string) {
+            // get current character
             tempCurrentCharacter = i;
             // is character in the substring?
             if (tempSubString.find(tempCurrentCharacter) != std::string::npos) {
@@ -73,17 +73,12 @@ public:
             }
             // is the new substring size the longest?
             // if so save it
-            if (tempSubString.size()> maxSize){
-                saveLongestSubstring(tempSubString, maxSubString, maxSize);
+            if (tempSubString.size()> maxSubString.size()){
+                maxSubString = tempSubString;
             }
 
         }
         return  maxSubString;
-    }
-
-    void saveLongestSubstring(const std::string &tempSubString,std::string &maxSubString, int &maxSize) const {
-        maxSize = tempSubString.size();
-        maxSubString = tempSubString;
     }
 };
 
