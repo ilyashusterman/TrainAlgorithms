@@ -32,74 +32,58 @@ Explanation: The answer is "wke", with the length of 3.
 #include <string>
 #include <stdio.h>
 #include <iostream>
-#include <map>
 
 class LongestSubstring {
 
 
 public:
-    public: static int main() {
+    public: int main() {
         std::cout << "Running, LongestSubstring" << std::endl;
-        std:: string const testStrings[] = { "abcabcbb", "bbbbb", "pwwkew"};
-//FIXME case     std:: string const testStrings[] = { "ppppppppppppppppppabcabcbb", ""};
+        std:: string const testStrings[] = { "ppppppppppppppppppabcabcbb", "abcabcbb", "bbbbb", "pwwkew", "abcabcgabcgf"};
         std:: string s_string;
         int length = 0;
         for(int i = 0; i < testStrings->length(); i++) {
             s_string = testStrings[i];
-            length = lengthOfLongestSubstring(s_string);
-            printf("length of %d in %s \n", length, s_string.c_str());
-
-//            exit(0);
+            lengthOfLongestSubstring(s_string);
         }
         return 0;
     }
-    static int lengthOfLongestSubstring(std::string s_string) {
+    int lengthOfLongestSubstring(std::string s_string) {
         std::string longestSubstring = getLongestSubstring(s_string);
-        printf("string_s of  %s \n", longestSubstring.c_str());
-        return longestSubstring.size();
+        int length = longestSubstring.size();
+        printf("Input: '%s' \n", s_string.c_str());
+        printf("Output: %d \n", length);
+        printf("Explanation: The answer is \"%s\", with the length of %d. \n", longestSubstring.c_str(), length);
+        return length;
     }
-    static std:: string getLongestSubstring(std:: string s_string){
-        /*
-         * First Find substrings
-         * Second put max value for length size
-         */
+    std:: string getLongestSubstring(std:: string s_string){
         std:: string tempSubString;
-        std:: string prevCharacter;
         std:: string tempCurrentCharacter;
         std:: string maxSubString;
         int maxSize=0;
-        std::string::size_type lastSubstringIndex=0;
-        for(std::string::size_type i = 0; i < s_string.size(); ++i) {
-            tempCurrentCharacter = s_string[i];
-            if (tempCurrentCharacter != prevCharacter) {
-                // yes
-                // is character in the substring?
-                if (tempSubString.find(tempCurrentCharacter) != std::string::npos) {
-                    //yes
-                    tempSubString = tempCurrentCharacter;
-                    lastSubstringIndex = i;
-                } else {
-                    std::string::size_type index = i;
-                    if (i==0 || index+1 == lastSubstringIndex){
-                        tempSubString = tempCurrentCharacter;
-                    }else{
-                        tempSubString = s_string.substr(lastSubstringIndex, index-1);
-                    }
-                }
-                // is the new substring size the longest?
-                if (tempSubString.size()> maxSize){
-                    maxSize = tempSubString.size();
-                    maxSubString = tempSubString;
-                }
+        for(char i : s_string) {
+            tempCurrentCharacter = i;
+            // is character in the substring?
+            if (tempSubString.find(tempCurrentCharacter) != std::string::npos) {
+                //yes we found this character already exist in substring resetting substring...
+                tempSubString = tempCurrentCharacter;
+            } else {
+                //current character was not found , updating substring...
+               tempSubString +=tempCurrentCharacter;
+            }
+            // is the new substring size the longest?
+            // if so save it
+            if (tempSubString.size()> maxSize){
+                saveLongestSubstring(tempSubString, maxSubString, maxSize);
+            }
 
-            }
-            else{
-                lastSubstringIndex = i;
-            }
-            //FIXME DEBUG log: printf("tempCurrentCharacter=%s tempSubString=%s index=%ld lastSubstringIndex=%ld \n", tempCurrentCharacter.c_str(), tempSubString.c_str(), index, lastSubstringIndex);
-            prevCharacter = tempCurrentCharacter;
         }
         return  maxSubString;
+    }
+
+    void saveLongestSubstring(const std::string &tempSubString,std::string &maxSubString, int &maxSize) const {
+        maxSize = tempSubString.size();
+        maxSubString = tempSubString;
     }
 };
 
