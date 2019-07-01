@@ -37,24 +37,20 @@ class LongestSubstring {
 
 
 public:
-    public: int main() {
-        std::cout << "Running, LongestSubstring" << std::endl;
+    public: void solve() {
+        printf("Running, LongestSubstring \n");
         std:: string const testStrings[] = { "ppppppppppppppppppabcabcbb", "abcabcbb", "bbbbb", "pwwkew", "abcabcgabcgf"};
-        std:: string s_string;
         int length = 0;
-        for(int i = 0; i < testStrings->length(); i++) {
-            s_string = testStrings[i];
-            lengthOfLongestSubstring(s_string);
+        for(const std::string& string_s : testStrings) {
+            lengthOfLongestSubstring(string_s);
         }
-        return 0;
     }
-    int lengthOfLongestSubstring(std::string s_string) {
+    void lengthOfLongestSubstring(std::string s_string) {
         std::string longestSubstring = getLongestSubstring(s_string);
         int length = longestSubstring.size();
         printf("Input: '%s' \n", s_string.c_str());
         printf("Output: %d \n", length);
         printf("Explanation: The answer is \"%s\", with the length of %d. \n", longestSubstring.c_str(), length);
-        return length;
     }
     std:: string getLongestSubstring(std:: string s_string){
         std:: string tempSubString;
@@ -63,7 +59,7 @@ public:
         for(char i : s_string) {
             // get current character
             tempCurrentCharacter = i;
-            // is character in the substring?
+            // is this character duplicated ? (already in the substring)
             if (tempSubString.find(tempCurrentCharacter) != std::string::npos) {
                 //yes we found this character already exist in substring resetting substring...
                 tempSubString = tempCurrentCharacter;

@@ -23,8 +23,8 @@ return [0, 1].
 
 class TwoSum {
 
-    public: int main() {
-        std::cout << "Running, TwoSum" << std::endl;
+    public: void solve() {
+        printf("Running, TwoSum \n");
         std::vector<int> array = { 1, 2,3,4};
         int target = 7;
         calculateAndPrint(array, target);
@@ -34,7 +34,6 @@ class TwoSum {
         array = { 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};
         target=2;
         calculateAndPrint(array, target);
-        return 0;
     }
 
     void calculateAndPrint(const std::vector<int> &array, int target) {
@@ -60,13 +59,13 @@ public: std::vector<int> twoSum(std::vector<int> nums, int target) {
         return {};
     }
 
-    void printIndexesArrayInt(std::vector<int> indexes, std::vector<int> array) const {
-        std::cout << "The indexes of array are:";
-        for (std::vector<int>::iterator it = indexes.begin();
-             it != indexes.end(); ++it) {
-             printf ("array[%d]=%d ", *it,  array[*it]);
+    void printIndexesArrayInt(const std::vector<int>& indexes, std::vector<int> array) const {
+        printf("The indexes of array are:");
+        for (const int & index : indexes) {
+             printf ("array[%d]=%d ", index,  array[index]);
         }
-        Printer().printArray(array);
+        Printer printer = Printer();
+        printer.printArray(array);
     }
 
 };
