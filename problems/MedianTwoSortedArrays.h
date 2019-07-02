@@ -24,18 +24,46 @@ nums2 = [3, 4]
 
 The median is (2 + 3)/2 = 2.5
  */
+#include <iomanip>
 #include "Printer.h"
-
+#include <tgmath.h>
 
 class MedianTwoSortedArrays {
 public:
     public:
     void solve() {
         printf("Running, MedianTwoSortedArrays \n");
-        float median = findMedianSortedArrays({1, 3}, {2});
-        printf("The median is %f \n", median);
-        median = findMedianSortedArrays({1, 2}, {3,4});
-        printf("The median is %f \n", median);
+        //TODO need  to refactor
+        Printer printer = Printer();
+        std::vector<int> nums1 = {1, 3};
+        std::vector<int> nums2 = {2};
+        float median;
+        float medianCheck = 2.0;
+        median = solve_arrays(printer, nums1, nums2);
+        assertFloatEqual(median, medianCheck);
+        nums1 = {1, 2};
+        nums2 = {3, 4};
+        medianCheck = 2.50;
+        assertFloatEqual(median, medianCheck);
+        solve_arrays(printer, nums1, nums2);
+        nums1 = {1, 2, 4};
+        nums2 = {3, 4};
+        medianCheck = 3.0;
+        solve_arrays(printer, nums1, nums2);
+        assertFloatEqual(median, medianCheck);
+    }
+
+    float solve_arrays(const Printer &printer, std::vector<int> &nums1,
+                      std::vector<int> &nums2) {
+        printf("Example:\n");
+        printf("nums1 = ");
+        printer.printArray(nums1);
+        printf("\nnums2 = ");
+        printer.printArray(nums2);
+        printf("\n");
+        float median = findMedianSortedArrays(nums1, nums2);
+        printf("The median is %f \n\n", median);
+        return median;
     }
 
     float findMedianSortedArrays(std::vector<int> nums1, std::vector<int> nums2) {
@@ -59,32 +87,34 @@ public:
             while (count < (nums1.size() + nums2.size())) {
                 int a = nums1[index_1];
                 int b = nums2[index_2];
-                printf("a=%d\n", a);
-                printf("b=%d\n", b);
-                if (index_1<nums1.size() && index_2 == nums2.size()-1){
+                if (index_1<nums1.size() && index_2 == nums2.size()){
                     sorted.push_back(a);
                     index_1++;
                 }
-                else if (index_2<nums2.size() && index_1 == nums1.size()-1) {
+                else if (index_2<nums2.size() && index_1 == nums1.size()) {
                     sorted.push_back(b);
                     index_2++;
                 }
                 else {
                     if (a < b) {
-                        printf("a in! \n");
                         sorted.push_back(a);
                         index_1++;
                     } else if (b <= a) {
-                        printf("b in! \n");
                         sorted.push_back(b);
                         index_2++;
                     }
                 }
-//                else if(index_1 < nums1.size()-1)
                 count++;
             }
 
         return sorted;
+    }
+
+    void assertFloatEqual(float median, float check) {
+
+        if (median > check && check < median){
+                throw 0;
+        }
     }
 
 

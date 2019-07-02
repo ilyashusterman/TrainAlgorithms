@@ -48,9 +48,9 @@ public:
     void lengthOfLongestSubstring(std::string s_string) {
         std::string longestSubstring = getLongestSubstring(s_string);
         int length = longestSubstring.size();
-        printf("Input: '%s' \n", s_string.c_str());
+        printf("Example: \nInput: '%s' \n", s_string.c_str());
         printf("Output: %d \n", length);
-        printf("Explanation: The answer is \"%s\", with the length of %d. \n", longestSubstring.c_str(), length);
+        printf("Explanation: The answer is \"%s\", with the length of %d. \n\n", longestSubstring.c_str(), length);
     }
     std:: string getLongestSubstring(std:: string s_string){
         std:: string tempSubString;

@@ -13,8 +13,14 @@ class Printer {
 public:
     void printArray(std::vector<int>& array) const {
         printf(" [");
-        for (int & it : array) {
-            printf("%d,", it);
+        for (int i=0; i<array.size() ;i++) {
+            int num = array[i];
+            if (i == array.size()-1){
+                printf("%d", num);
+            }
+            else {
+                printf("%d, ", num);
+            }
         }
         printf("]");
     }
