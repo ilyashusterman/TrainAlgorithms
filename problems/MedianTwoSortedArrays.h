@@ -85,22 +85,22 @@ public:
             int index_1 = 0;
             int index_2 = 0;
             while (count < (nums1.size() + nums2.size())) {
-                int a = nums1[index_1];
-                int b = nums2[index_2];
+                int num_1 = nums1[index_1];
+                int num_2 = nums2[index_2];
                 if (index_1<nums1.size() && index_2 == nums2.size()){
-                    sorted.push_back(a);
+                    sorted.push_back(num_1);
                     index_1++;
                 }
                 else if (index_2<nums2.size() && index_1 == nums1.size()) {
-                    sorted.push_back(b);
+                    sorted.push_back(num_2);
                     index_2++;
                 }
                 else {
-                    if (a < b) {
-                        sorted.push_back(a);
+                    if (num_1 < num_2) {
+                        sorted.push_back(num_1);
                         index_1++;
-                    } else if (b <= a) {
-                        sorted.push_back(b);
+                    } else if (num_2 <= num_1) {
+                        sorted.push_back(num_2);
                         index_2++;
                     }
                 }
