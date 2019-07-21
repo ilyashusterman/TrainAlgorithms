@@ -35,13 +35,9 @@ EQUALS = =
 #=============================================================================
 # Targets provided globally by CMake.
 
-.PHONY : all
-
-# The main clean target
 clean:
 	$(MAKE) -f CMakeFiles/Makefile2 clean
 .PHONY : clean
-# run main
 main:
 	$(VERBOSE) g++ $(CFLAGS) main.cpp -o main.o
 	$(VERBOSE) ./main.o
