@@ -14,8 +14,11 @@ pattern could be empty and contains only lowercase letters a-z, and characters l
 
 
 class BaseSymbol:
-    def __init__(self, patterns):
-        self.patterns = patterns
+    def __init__(self, pattern):
+        self.patterns = self.get_patterns(pattern)
+
+    def get_patterns(self, pattern) -> list:
+        raise NotImplemented
 
     def clean_string(self, string) -> bool:
         raise NotImplemented
@@ -29,13 +32,18 @@ class AnySingleCharacter(BaseSymbol):
 
     def __init__(self, pattern):
         super().__init__(pattern)
-        self.original_pattern = pattern
-        self.patterns = [pattern.index(index_pattern) for index_pattern in pattern.split('.')][:-1]
+
+    def get_patterns(self, pattern) -> list:
+        return [pattern.index(index_pattern) for index_pattern in pattern.split('.')][:-1]
 
     def clean_string(self, string) -> bool:
         for pattern_index in self.patterns:
-            string = string[0:pattern_index] + string[pattern_index+1: len(string)]
+            string = self.remove_index_from_string(pattern_index, string)
         return string
+
+    @staticmethod
+    def remove_index_from_string(pattern_index, string):
+        return string[0:pattern_index] + string[pattern_index + 1: len(string)]
 
     @classmethod
     def from_string(cls, pattern, string):
@@ -49,17 +57,21 @@ class PrecedingElement(BaseSymbol):
 
     def __init__(self, pattern):
         super().__init__(pattern)
-        self.patterns = pattern.split('*')
+
+    def get_patterns(self, pattern) -> list:
+        return pattern.split('*')
 
     def clean_string(self, string) -> bool:
+        for index, part_pattern in enumerate(self.patterns):
+            part_pattern_clean = part_pattern
+            if part_pattern == '.':
+                part_pattern_clean = string[index-1 if index is not 0 else 0:]
+            string = self.clean_part_string(part_pattern_clean, string)
+        return string
 
-        did_not_match = string
-        for index, word_pattern in enumerate(self.patterns):
-            if word_pattern == '.':
-                did_not_match = did_not_match.replace(did_not_match[index-1 if index is not 0 else 0:], '')
-            else:
-                did_not_match = did_not_match.replace(word_pattern, '')
-        return did_not_match
+    @staticmethod
+    def clean_part_string(part_pattern_clean, string):
+        return string.replace(part_pattern_clean, '')
 
     @classmethod
     def from_string(cls, pattern, string):
