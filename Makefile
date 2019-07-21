@@ -26,7 +26,7 @@ $(VERBOSE).SILENT:
 SHELL = /bin/bash
 CMAKE_COMMAND = /home/ilya/Downloads/clion-2019.1.4/bin/cmake/linux/bin/cmake
 
-
+export PYTHONPATH=$(pwd):./
 # Escaping for special characters.
 EQUALS = =
 
@@ -47,3 +47,6 @@ main:
 	$(VERBOSE) ./main.o
 	$(VERBOSE) rm -rf ./main.o
 .PHONY : main
+py_algo:
+	$(VERBOSE) nosetests ./py_problems/
+.PHONY : py_algo
