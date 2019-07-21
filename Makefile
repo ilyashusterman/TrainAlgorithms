@@ -1,5 +1,4 @@
 # Makefile for running repository commands
-# CMake Version 3.14
 
 # Default target executed when no arguments are given to make.
 default_target: main
@@ -30,10 +29,8 @@ export PYTHONPATH=$(pwd):./
 # Escaping for special characters.
 EQUALS = =
 
-
-
 #=============================================================================
-# Targets provided globally by CMake.
+# Targets provided globally
 
 clean:
 	$(MAKE) -f CMakeFiles/Makefile2 clean

@@ -60,3 +60,9 @@ class TestRegularExpressionMatching(TestCase):
 
     def test_match_any_character_string_dot(self):
         self.assertTrue(match(string='a', pattern='.'))
+
+    def test_match_empty_pattern(self):
+        self.assertFalse(match(string='aasdasd', pattern=''))
+
+    def test_match_empty_string(self):
+        self.assertFalse(match(string='', pattern='absd*.'))

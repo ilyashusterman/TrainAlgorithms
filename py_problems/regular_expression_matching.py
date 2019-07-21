@@ -20,11 +20,11 @@ class BaseSymbol:
     def get_patterns(self, pattern) -> list:
         raise NotImplemented
 
-    def clean_string(self, string) -> bool:
+    def clean_string(self, string) -> str:
         raise NotImplemented
 
     @classmethod
-    def from_string(cls, pattern, string):
+    def from_string(cls, pattern, string) -> str:
         raise NotImplemented
 
 
@@ -36,17 +36,17 @@ class AnySingleCharacter(BaseSymbol):
     def get_patterns(self, pattern) -> list:
         return [pattern.index(index_pattern) for index_pattern in pattern.split('.')][:-1]
 
-    def clean_string(self, string) -> bool:
+    def clean_string(self, string) -> str:
         for pattern_index in self.patterns:
             string = self.remove_index_from_string(pattern_index, string)
         return string
 
     @staticmethod
-    def remove_index_from_string(pattern_index, string):
+    def remove_index_from_string(pattern_index, string) -> str:
         return string[0:pattern_index] + string[pattern_index + 1: len(string)]
 
     @classmethod
-    def from_string(cls, pattern, string):
+    def from_string(cls, pattern, string) -> str:
         if pattern.__contains__('.'):
             return cls(pattern).clean_string(string)
         else:
@@ -61,7 +61,7 @@ class PrecedingElement(BaseSymbol):
     def get_patterns(self, pattern) -> list:
         return pattern.split('*')
 
-    def clean_string(self, string) -> bool:
+    def clean_string(self, string) -> str:
         for index, part_pattern in enumerate(self.patterns):
             part_pattern_clean = part_pattern
             if part_pattern == '.':
@@ -70,11 +70,11 @@ class PrecedingElement(BaseSymbol):
         return string
 
     @staticmethod
-    def clean_part_string(part_pattern_clean, string):
+    def clean_part_string(part_pattern_clean, string) -> str:
         return string.replace(part_pattern_clean, '')
 
     @classmethod
-    def from_string(cls, pattern, string):
+    def from_string(cls, pattern, string) -> str:
         if pattern.__contains__('*'):
             return cls(pattern).clean_string(string)
         else:
@@ -85,6 +85,8 @@ CLEAN_SYMBOLS = [PrecedingElement, AnySingleCharacter]
 
 
 def match(string: str, pattern: str) -> bool:
+    if string == '':
+        return False
     if is_equal_comparison(pattern):
         return string == pattern
     else:
@@ -95,5 +97,5 @@ def match(string: str, pattern: str) -> bool:
         return string == ''
 
 
-def is_equal_comparison(pattern):
+def is_equal_comparison(pattern) -> bool:
     return '*' not in pattern and '.' not in pattern
